@@ -1,4 +1,4 @@
-const API_URL = '/api/estudiantes'; // URL base de la API
+const API_URL = 'https://api-crud-gestion-escolar.vercel.app' /*'/api/estudiantes'; // URL base de la API*/
 
 /**
  * Maneja las respuestas de fetch.*/
