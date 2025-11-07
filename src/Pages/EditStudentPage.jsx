@@ -1,5 +1,3 @@
-// 📍 src/pages/EditStudentPage.jsx
-
 import * as React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Box, CircularProgress, Typography, Alert } from '@mui/material';
