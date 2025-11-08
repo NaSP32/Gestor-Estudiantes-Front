@@ -1,23 +1,25 @@
 import * as React from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { getStudents, getStudentById } from '../Services/studentService';
 
 /**
  * Hook personalizado para gestionar la lista de estudiantes.
  */
 export const useStudents = () => {
-    const [students, setStudents] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState(true);
-    const [error, setError] = React.useState(null);
+    const [students, setStudents] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     // Función para (re)cargar la lista de estudiantes
-    const fetchStudents = React.useCallback(async () => {
+    const fetchStudents = useCallback(async () => {
         setIsLoading(true);
         setError(null);
         try {
             const data = await getStudents();
-            console.log(data)
+            console.log('Estudiantes cargados:', data)
             setStudents(data);
         } catch (err) {
+            console.error('Error al cargar estudiantes:', err);
             setError(err.message);
         } finally {
             setIsLoading(false);
@@ -25,7 +27,7 @@ export const useStudents = () => {
     }, []);
 
     // Carga inicial de datos
-    React.useEffect(() => {
+    useEffect(() => {
         fetchStudents();
     }, [fetchStudents]);
 
@@ -37,26 +39,31 @@ export const useStudents = () => {
  * Hook personalizado para gestionar un *único* estudiante (para la vista de detalle/editar).
  */
 export const useStudent = (id) => {
-    const [student, setStudent] = React.useState(null);
-    const [isLoading, setIsLoading] = React.useState(true);
-    const [error, setError] = React.useState(null);
+    const [student, setStudent] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const fetchStudent = React.useCallback(async () => {
-        if (!id) return; // No hacer nada si no hay ID
+    const fetchStudent = useCallback(async () => {
+        if (!id) { 
+            setIsLoading(false); 
+            return;
+        } // No hacer nada si no hay ID
 
         setIsLoading(true);
         setError(null);
         try {
             const data = await getStudentById(id);
+            console.log('Estudiante cargado:', data);
             setStudent(data);
         } catch (err) {
+            console.log('Error al cargar estudiante', err);
             setError(err.message);
         } finally {
             setIsLoading(false);
         }
     }, [id]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         fetchStudent();
     }, [fetchStudent]);
     

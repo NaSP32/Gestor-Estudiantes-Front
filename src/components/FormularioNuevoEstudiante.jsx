@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react'; 
 import { Paper, Typography, TextField, FormControl, FormGroup, 
     FormControlLabel, Checkbox, FormHelperText, 
     Grid, Button, Alert } from '@mui/material';
@@ -11,11 +11,11 @@ const FormularioNuevoEstudiante = ({ onCancel, onComplete }) => {
     
     const { showNotification } = useNotification(); // Hook para notificaciones
     
-    const [formData, setFormData] = React.useState({
+    const [formData, setFormData] = useState({
         nombre: '', apellido: '', email: '', cursos: [], 
     });
-    const [isSubmitting, setIsSubmitting] = React.useState(false);
-    const [submissionError, setSubmissionError] = React.useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submissionError, setSubmissionError] = useState(null);
     
     // ... (handleChange y handleCourseChange sin cambios) ...
     const handleChange = (e) => {

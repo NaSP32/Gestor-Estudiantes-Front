@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, TextField, FormControl, InputLabel, 
     Select, MenuItem, Grid, Button, Paper, Box, CircularProgress, Alert } from '@mui/material';
@@ -17,11 +17,11 @@ const ModificarEstudiante = () => {
   // 1. Obtiene los datos del hook
   const { students, isLoading, error, refreshStudents } = useStudents();
   
-  const [searchTerm, setSearchTerm] = React.useState('');
-  const [filterCourse, setFilterCourse] = React.useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterCourse, setFilterCourse] = useState('');
 
   // 2. Lógica de Doble Filtro 
-  const filteredStudents = React.useMemo(() => {
+  const filteredStudents = useMemo(() => {
     let list = students; 
     const lowerCaseSearch = searchTerm.toLowerCase();
 

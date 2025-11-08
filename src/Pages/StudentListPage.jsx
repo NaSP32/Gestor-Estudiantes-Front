@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMemo, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Typography, Box, CircularProgress, Alert } from '@mui/material';
 import TablaEstudiantes from '../components/TablaEstudiantes';
@@ -18,7 +19,7 @@ const StudentListPage = () => {
     const filterCourse = searchParams.get('course');
 
     // 3. Lógica de filtrado (usando useMemo para optimizar)
-    const filteredStudents = React.useMemo(() => {
+    const filteredStudents = useMemo(() => {
         if (!filterCourse) {
             return students; // Lista completa
         }
@@ -28,9 +29,23 @@ const StudentListPage = () => {
     }, [students, filterCourse]);
 
     // 4. Handlers de acciones
-    const handleEdit = (id) => {
+     const handleEdit = (id) => {
+      
+      // Busca el estudiante completo en la lista que ya tenemos
+      const studentToEdit = students.find(s => s._id === id);
+      
+      if (studentToEdit) {
+        // Pasa el objeto 'student' a través del 'state' del router
+        navigate(`/students/edit/${id}`, { state: { student: studentToEdit } });
+      } else {
+        // Fallback (por si acaso, aunque no debería pasar)
+        showNotification('Error: No se encontró el estudiante en la lista local', 'error');
         navigate(`/students/edit/${id}`);
-    };
+      }
+     
+  };
+
+
 
     const handleDelete = async (id) => {
         // Usamos confirm para la eliminación (se puede reemplazar por un Modal)
