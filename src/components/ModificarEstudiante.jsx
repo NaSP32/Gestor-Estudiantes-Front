@@ -93,6 +93,13 @@ const ModificarEstudiante = () => {
           <FormControl fullWidth variant="outlined">
             <InputLabel id="filter-course-search-label">Filtrar por Curso</InputLabel>
             <Select
+            sx={ 
+              { 
+                width:'100%',
+                minWidth: '320px'
+              }
+
+            }
               labelId="filter-course-search-label"
               value={filterCourse}
               label="Filtrar por Curso"
