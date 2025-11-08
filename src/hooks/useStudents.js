@@ -15,6 +15,7 @@ export const useStudents = () => {
         setError(null);
         try {
             const data = await getStudents();
+            console.log(data)
             setStudents(data);
         } catch (err) {
             setError(err.message);
