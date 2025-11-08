@@ -42,7 +42,7 @@ export const getStudentById = async (id) => {
  * Crea un nuevo estudiante.
 */ 
 export const createStudent = async (studentData) => {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}${API_ENDPOINT}`,{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(studentData),
