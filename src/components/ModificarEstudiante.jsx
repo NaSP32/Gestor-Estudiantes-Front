@@ -20,7 +20,7 @@ const ModificarEstudiante = () => {
   const [searchTerm, setSearchTerm] = React.useState('');
   const [filterCourse, setFilterCourse] = React.useState('');
 
-  // 2. Lógica de Doble Filtro (sin cambios)
+  // 2. Lógica de Doble Filtro 
   const filteredStudents = React.useMemo(() => {
     let list = students; 
     const lowerCaseSearch = searchTerm.toLowerCase();
@@ -40,9 +40,23 @@ const ModificarEstudiante = () => {
   }, [students, searchTerm, filterCourse]);
   
   // 3. Handlers de acción
-  const handleEdit = (id) => {
-      navigate(`/students/edit/${id}`);
-  };
+  
+  const handleEdit = (id) => {
+      
+      // Busca el estudiante completo en la lista que ya tenemos
+      const studentToEdit = students.find(s => s._id === id);
+      
+      if (studentToEdit) {
+        // Pasa el objeto 'student' a través del 'state' del router
+        navigate(`/students/edit/${id}`, { state: { student: studentToEdit } });
+      } else {
+        // Fallback (por si acaso, aunque no debería pasar)
+        showNotification('Error: No se encontró el estudiante en la lista local', 'error');
+        navigate(`/students/edit/${id}`);
+      }
+     
+  };
+
 
   const handleDelete = async (id) => {
       if (window.confirm("¿Estás seguro de que deseas eliminar este estudiante?")) {
@@ -56,6 +70,8 @@ const ModificarEstudiante = () => {
       }
   };
 
+
+ 
   return (
     <Paper sx={{ p: 3, mt: 3, background: '#fff', borderRadius: 2 }}>
       <Typography variant="h4" sx={{ textAlign: 'center', mb: 3, color: '#FBC02D' }}>
