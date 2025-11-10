@@ -55,7 +55,7 @@ La arquitectura del proyecto se diseñó para cumplir con los requisitos obligat
 ### 1. Clonar el repositorio
 
 ```
-git clone https://github.com/NaSP32/FrontGestorDeEstudiantes/tree/main.git
+git clone https://github.com/NaSP32/Gestor-Estudiantes-Front.git
 cd gestor-estudiantes
 npm install
 ``` 
@@ -67,29 +67,16 @@ npm install
 ``` 
 
 ### 3. Conexión con la API (Proxy de Vite)
-Este proyecto utiliza un proxy de Vite para evitar problemas de CORS al conectarse a la API desplegada en Vercel. La configuración ya está incluida en vite.config.js.
 
-Importante: La API de backend debe estar desplegada y funcionando en la URL especificada en vite.config.js.
 
 ```bash
 // vite.config.js
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      '/api': {
-        // URL de la API desplegada en Vercel
-        target: '[https://api-crud-gestion-escolar.vercel.app](https://api-crud-gestion-escolar.vercel.app)',
-        changeOrigin: true,
-        secure: true,
-        // Mantiene el prefijo /api en la ruta de destino
-        rewrite: (path) => path.replace(/^\/api/, '/api')
-      }
-    }
-  }
 })
 ```
 
@@ -98,4 +85,4 @@ export default defineConfig({
 ```bash
 npm run dev
 ```
-La aplicación estará disponible en Vercel. Todas las peticiones a /api/... serán redirigidas automáticamente a la API de Vercel.
+La aplicación estará disponible en [Vercel](https://gestor-estudiantes-front.vercel.app/). Todas las peticiones a /api/... serán redirigidas automáticamente a la API de Vercel.
