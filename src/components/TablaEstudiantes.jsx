@@ -1,7 +1,7 @@
 //Tabla de estudiantes
 import * as React from 'react';
 import { Table, TableBody, TableCell, TableContainer, 
-    TableHead, TableRow, Paper, Button, Typography } from '@mui/material';
+    TableHead, TableRow, Paper, Button, Typography, Box } from '@mui/material';
 import EditNoteIcon from '@mui/icons-material/EditNote'; 
 import DeleteIcon from '@mui/icons-material/Delete'; 
 
@@ -19,6 +19,11 @@ const TablaEstudiantes = ({ students, onEdit, onDelete , filterCourse}) => {
     }
     
     return (
+        <Box sx={{
+            width: '100%',
+            overflowX: 'auto', // ❗️ Esta es la magia
+            WebkitOverflowScrolling: 'touch', // Scroll suave en iOS
+        }}>
         <TableContainer component={Paper} sx={{ mt: 4, mb: 8 }}>
             <Table sx={{ minWidth: 800 }} aria-label="Tabla de gestión de estudiantes">
                 
@@ -54,7 +59,8 @@ const TablaEstudiantes = ({ students, onEdit, onDelete , filterCourse}) => {
                                     size="small" 
                                     startIcon={<EditNoteIcon />}
                                     onClick={() => onEdit(student._id)} 
-                                    sx={{ mr: 1, color: '#FBC02D', borderColor: '#FBC02D' }} 
+                                    sx={{ mr: 1, color: '#FBC02D', borderColor: '#FBC02D' }}
+                                    
                                 >
                                     Modificar
                                 </Button>
@@ -79,6 +85,8 @@ const TablaEstudiantes = ({ students, onEdit, onDelete , filterCourse}) => {
                 </TableBody>
             </Table>
         </TableContainer>
+        </Box>
+       
     );
 };
 

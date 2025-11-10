@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Button, ButtonGroup, Select, MenuItem, FormControl, InputLabel, Box } from '@mui/material'; 
+import { Button, ButtonGroup, Select, MenuItem, FormControl, InputLabel, Box} from '@mui/material'; 
 import DeleteIcon from '@mui/icons-material/Delete'; 
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditNoteIcon from '@mui/icons-material/EditNote'; 
-import FilterListIcon from '@mui/icons-material/FilterList'; 
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { useState } from 'react'; 
 
 const AVAILABLE_COURSES = ["Matemática", "Historia", "Ciencias", "Arte"];
 
@@ -15,7 +16,7 @@ const Estudiantes = () => {
     
     // 2. Usamos searchParams para leer el filtro actual de la URL
     const [searchParams] = useSearchParams();
-    const [selectedCourse, setSelectedCourse] = React.useState(searchParams.get('course') || 'todos');
+    const [selectedCourse, setSelectedCourse] = useState(searchParams.get('course') || 'todos');
 
     // 3. Handler para el filtro
     const handleFilterChange = (event) => {
@@ -32,7 +33,14 @@ const Estudiantes = () => {
     };
 
     return (
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, alignItems: 'center', mb: 3 }}>
+        
+        <Box sx={{ 
+                    display: 'flex', 
+                    flexWrap: 'wrap', 
+                    gap: 2, 
+                    alignItems: 'center', 
+                    mb: 3 
+                    }}>
             
             {/* 1. BOTÓN NUEVO ESTUDIANTE */}
             <Button 
@@ -44,7 +52,9 @@ const Estudiantes = () => {
                     color: '#FFFFFF',
                     '&:hover': { bgcolor: '#115293' },
                     fontSize: '0.875rem',
-                    mr: 2 
+                    mr: { xs: 0, md: 2 },
+                    width: { xs: '100%', sm: 'auto' } // ❗️ Ocupa 100%
+ 
                 }}
                 // Navega a la ruta de creación
                 onClick={() => navigate('/students/new')} 
@@ -53,9 +63,20 @@ const Estudiantes = () => {
             </Button>
 
             {/* 2. GRUPO DE GESTIÓN DE DATOS */}
-            <ButtonGroup variant="contained" 
+            <ButtonGroup 
+            variant="contained" 
             aria-label="Grupo de botones para gestión de estudiantes"
-            size="medium" >
+            size="medium" 
+          
+            sx={{
+                    width: { xs: '100%', sm: 'auto' },
+                    flexDirection: {
+                                xs: 'column', // Vertical en celulares
+                                sm: 'row' // Horizontal en tablets y más
+                            }
+                }}
+            
+            >
                 
                 <Button 
                     startIcon={<VisibilityIcon />} 
@@ -101,7 +122,13 @@ const Estudiantes = () => {
             </ButtonGroup>
 
              {/* 3. CONTROL DE FILTRO POR CURSO */}
-            <FormControl sx={{ minWidth: 150 }} size="small">
+            <FormControl
+                size="small" 
+                sx={{ 
+                    minWidth: 150, 
+                    width: { xs: '100%', sm: 'auto' } 
+                }}
+                 >
                 <InputLabel id="filter-course-label">
                     <FilterListIcon sx={{ mr: 0.5 }} /> Filtrar
                 </InputLabel>
@@ -118,6 +145,7 @@ const Estudiantes = () => {
                 </Select>
             </FormControl>
         </Box>
+        
     );
 };
 

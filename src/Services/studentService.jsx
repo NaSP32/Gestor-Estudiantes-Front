@@ -1,6 +1,3 @@
-/*const API_URL = '/api/estudiantes';
-const API_URL = 'https://api-crud-gestion-escolar.vercel.app/api/estudiantes';  
-*/
 // 1. Lee la URL BASE (que será la URL completa)
 const API_URL = import.meta.env.VITE_API_URL;
 const API_ENDPOINT = '/api/estudiantes';

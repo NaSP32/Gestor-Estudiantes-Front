@@ -3,17 +3,18 @@ import { Paper, Typography, TextField, FormControl, FormGroup, FormControlLabel,
      Checkbox, FormHelperText, Grid, Button, Alert, Box } from '@mui/material';
 import { updateStudent, deleteStudent } from '../Services/studentService'; // Importa servicios
 import { useNotification } from '../hooks/useNotification'; // Importa hook
+import { useState } from 'react';
 
 const AVAILABLE_COURSES = ["Matemática", "Historia", "Ciencias", "Arte"]; 
 
 const EditStudentForm = ({ student, onComplete, onCancel }) => {
     
     const { showNotification } = useNotification();
-    const [isSubmitting, setIsSubmitting] = React.useState(false);
-    const [submissionError, setSubmissionError] = React.useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submissionError, setSubmissionError] = useState(null);
 
     // Inicializa el formulario con los datos del estudiante
-    const [formData, setFormData] = React.useState({
+    const [formData, setFormData] = useState({
         nombre: student.nombre || '',
         apellido: student.apellido || '',
         email: student.email || '',
