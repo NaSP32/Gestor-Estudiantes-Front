@@ -81,12 +81,16 @@ const StudentListPage = () => {
                 {filterCourse ? `Estudiantes en ${filterCourse}` : 'Listado de Todos los Estudiantes'}
             </Typography>
             
+            
+             
             <TablaEstudiantes 
                 students={filteredStudents} 
                 onEdit={handleEdit}
                 onDelete={handleDelete}
                 filterCourse={filterCourse}
             />
+            
+            
         </div>
     );
 };
